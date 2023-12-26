@@ -1,0 +1,6 @@
+#ignore auto generate dirctory during build
+/**/bin
+/**/obj
+
+#ignore auto generate dirctory by visual studio
+/**/.vs
