@@ -4,6 +4,7 @@ namespace GoogleIntegration.Abstraction
 {
 	public interface IGoogleAuthApi
 	{
+		string OpenConnectUrl();
 		string OpenConnectUrl(OpenConnectRequestModel googleAuthRequest);
 		string GetAuthCodeFromResponse(string redirectUri);
 		AuthResponseModel GenerateAuthToken(AuthRequestModel authRequestModel);

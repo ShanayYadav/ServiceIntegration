@@ -1,4 +1,4 @@
-﻿namespace GoogleIntegration.Domain.Config.MapApi
+﻿namespace GoogleIntegration.Domain.Config
 {
     public class ThiredPartyApi
     {
