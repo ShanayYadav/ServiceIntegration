@@ -6,20 +6,20 @@ namespace GoogleIntegration.Domain.Auth
 	public class OpenConnectRequestModel
 	{
 		[Required]
-		public string client_id { get; set; }
+		public string Client_Id { get; set; }
 		[Required]
-		public string redirect_uri { get; set; }
+		public string Redirect_Uri { get; set; }
 		[Required]
-		public string response_type { get; set; }
+		public string Response_Type { get; set; }
 		[Required]
-		public string scope { get; set; }
+		public string Scope { get; set; }
 		[Required]
-		public string access_type { get; set; }
+		public string Access_Type { get; set; }
 		[Required]
-		public string state { get; set; }
-		public string include_granted_scopes { get; set; }
-		public string enable_granular_consent { get; set; }
-		public string login_hint { get; set; }
-		public string prompt { get; set; }
+		public string State { get; set; }
+		public bool Include_Granted_Scopes { get; set; }
+		public string Enable_Granular_Consent { get; set; }
+		public string Login_Hint { get; set; }
+		public string Prompt { get; set; }
 	}
 }

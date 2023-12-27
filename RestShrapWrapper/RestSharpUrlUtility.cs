@@ -12,7 +12,18 @@
 			var properties = source.GetType().GetProperties()?.ToList();
 			properties?.ForEach(x =>
 			{
-				param += $"{x.Name}={x.GetValue(source)}&";
+				var value = x.GetValue(source)?.ToString();
+
+				if (!string.IsNullOrEmpty(value) && value.Trim().Length > 0)
+				{
+					if (x.PropertyType.IsPrimitive &&
+					x.PropertyType.FullName.Equals("System.Boolean", StringComparison.InvariantCultureIgnoreCase))
+					{
+						value = value.ToLower();
+					}
+
+					param += $"{x.Name.ToLower()}={value}&";
+				}
 			});
 			return param?.Substring(0, param.Length - 1);
 		}
