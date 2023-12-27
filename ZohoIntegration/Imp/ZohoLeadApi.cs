@@ -3,20 +3,20 @@ using RestSharp;
 using ZohoAbstraction;
 using ZohoIntegration.Domain;
 using ZohoIntegration.Domain.Lead;
-using ZohoIntegration.Domain.Enum;
+using Microsoft.Extensions.Options;
+using ZohoIntegration.Domain.Config;
 
 namespace ZohoIntegration.Imp
 {
 	public class ZohoLeadApi : IZohoLeadApi
 	{
 		const string ZOHO_LEAD_API_URI = "/crm/v5/Leads";
-		IZohoConfiguration _zohoConfiguration;
+		ZohoApi _zohoApi;
 
-		public ZohoLeadApi(IZohoConfiguration zohoConfiguration)
+		public ZohoLeadApi(IOptions<ZohoApi> zohoApi)
 		{
-			_zohoConfiguration = zohoConfiguration;
+			_zohoApi = zohoApi.Value;
 		}
-
 
 		public ZohoLeadApiResponseModel GenerateZohoLead(string authToken, ZohoLeadApiRequestModel zohoLeadRequest)
 		{
@@ -28,10 +28,9 @@ namespace ZohoIntegration.Imp
 			try
 			{
 				var responseData = new ZohoApiResponse<ZohoLeadApiResponseModel>();
-				var configuration = _zohoConfiguration.GetZohoConfiguration(ZohoClientTypeEnum.Crm);
 				var leadRequest = new ZohoApiRequest<ZohoLeadApiRequestModel>();
 				leadRequest.data = zohoLeadRequest;
-				var restClient = new RestClient(configuration.BaseUrl);
+				var restClient = new RestClient(_zohoApi.BaseUrl);
 				var restRequest = new RestRequest(ZOHO_LEAD_API_URI, Method.Post);
 				restRequest.AddHeader("Authorization", $"Zoho-oauthtoken {authToken}");
 				restRequest.AddHeader("Content-Type", "application/json");

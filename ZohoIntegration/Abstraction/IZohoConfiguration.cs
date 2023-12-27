@@ -1,10 +1,10 @@
-﻿using ZohoIntegration.Domain;
+﻿using ZohoIntegration.Domain.Config;
 using ZohoIntegration.Domain.Enum;
 
 namespace ZohoAbstraction
 {
-	public interface IZohoConfiguration
+    public interface IZohoConfiguration
 	{
-		ZohoConfigurationModel GetZohoConfiguration(ZohoClientTypeEnum clientType);
+		ZohoApi GetZohoConfiguration(ZohoClientTypeEnum clientType);
 	}
 }
