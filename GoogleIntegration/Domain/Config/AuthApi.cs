@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace GoogleIntegration.Domain.Config
+﻿namespace GoogleIntegration.Domain.Config
 {
 	public class AuthApi
 	{
