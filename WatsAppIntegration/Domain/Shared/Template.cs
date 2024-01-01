@@ -4,6 +4,6 @@
 	{
 		public string Name { get; set; }
 		public Language Language { get; set; }
-		public Component[] Components { get; set; }
+		public List<Component> Components { get; set; }
 	}
 }

@@ -3,12 +3,12 @@ using GoogleIntegration.Domain.Auth;
 using GoogleIntegration.Domain.Config;
 using Microsoft.Extensions.Options;
 using RestSharp;
-using RestShrapWrapper;
+using RestShrapWrapper.Utility;
 using System.Web;
 
 namespace GoogleIntegration.Imp
 {
-	public class GoogleAuthApi : IGoogleAuthApi
+    public class GoogleAuthApi : IGoogleAuthApi
 	{
 		const string GOOGLE_OPEN_Connect_AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth";
 		const string GOOGLE_AUTH_URL = "https://oauth2.googleapis.com/token";

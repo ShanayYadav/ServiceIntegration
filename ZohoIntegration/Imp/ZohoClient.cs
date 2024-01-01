@@ -4,11 +4,11 @@ using ZohoIntegration.Domain;
 using System.Text.Json;
 using Microsoft.Extensions.Options;
 using ZohoIntegration.Domain.Config;
-using RestShrapWrapper;
+using RestShrapWrapper.Utility;
 
 namespace ZohoIntegration.Imp
 {
-	public class ZohoClient : IZohoClient
+    public class ZohoClient : IZohoClient
 	{
 		const string ZOHO_AUTH_OPENCONNECT_URI = "/oauth/v2/auth";
 		const string ZOHO_AUTH_GENERATE_URI = "/oauth/v2/token";
@@ -59,6 +59,7 @@ namespace ZohoIntegration.Imp
 				throw new Exception("Zoho Auth token(/oauth/v2/token) generation api fail");
 			}
 			//JsonConvert.DeserializeObject<ZohoAuthTokenResponseModel>(response.Content);
+
 			return JsonSerializer.Deserialize<ZohoAuthTokenResponseModel>(response.Content);
 		}
 	}

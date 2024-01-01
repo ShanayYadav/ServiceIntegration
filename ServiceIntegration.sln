@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestShrapWrapper", "RestShr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleIntegration.Test", "GoogleIntegration.Test\GoogleIntegration.Test.csproj", "{F32BEAA2-95A8-4FC7-AC79-1EE84AA0F6A5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatsAppIntegration.Test", "WatsAppIntegration.Test\WatsAppIntegration.Test.csproj", "{C45DB762-3EEC-4E1B-BDA0-F4122DC69DA9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{F32BEAA2-95A8-4FC7-AC79-1EE84AA0F6A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F32BEAA2-95A8-4FC7-AC79-1EE84AA0F6A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F32BEAA2-95A8-4FC7-AC79-1EE84AA0F6A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C45DB762-3EEC-4E1B-BDA0-F4122DC69DA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C45DB762-3EEC-4E1B-BDA0-F4122DC69DA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C45DB762-3EEC-4E1B-BDA0-F4122DC69DA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C45DB762-3EEC-4E1B-BDA0-F4122DC69DA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
