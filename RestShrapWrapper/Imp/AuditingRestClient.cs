@@ -1,8 +1,9 @@
-﻿using RestShrapWrapper.Domian;
+﻿using RestShrapWrapper.Abstraction;
+using RestShrapWrapper.Domian;
 
 namespace RestShrapWrapper.Imp
 {
-	public sealed class AuditingRestClient
+	public sealed class AuditingRestClient : IAuditingRestClient
 	{
 		private IntegrationAuditingContext _context;
 

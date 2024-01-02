@@ -5,7 +5,7 @@ namespace RestShrapWrapper.Imp
 {
 	public class RestApiInvoker : RestApiInvokerBase, IRestApiInvoker
 	{
-		public RestApiInvoker(IntegrationAuditingContext dbcontext) : base(dbcontext)
+		public RestApiInvoker(IRequestEvent requestEvent) : base(requestEvent)
 		{
 
 		}

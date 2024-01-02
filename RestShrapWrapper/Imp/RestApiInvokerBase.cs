@@ -1,4 +1,5 @@
 ﻿using RestSharp;
+using RestShrapWrapper.Abstraction;
 using RestShrapWrapper.JsonPolicy;
 using RestShrapWrapper.Utility;
 using System.Text.Json;
@@ -7,10 +8,10 @@ namespace RestShrapWrapper.Imp
 {
 	public abstract class RestApiInvokerBase
 	{
-		RequestEvent _requestEvent;
-		public RestApiInvokerBase(IntegrationAuditingContext dbcontext)
+		IRequestEvent _requestEvent;
+		public RestApiInvokerBase(IRequestEvent requestEvent)
 		{
-			_requestEvent=new RequestEvent(dbcontext);
+			_requestEvent = requestEvent;
 		}
 
 		protected internal TReturn RestApiCall<TSource, TReturn>(string url, TSource source, Dictionary<string, string> headers, Method method) where TReturn : class, new()

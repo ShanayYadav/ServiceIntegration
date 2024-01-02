@@ -6,6 +6,8 @@ using WatsAppIntegration.Domain;
 using WatsAppIntegration.Domain.Shared;
 using RestShrapWrapper.Abstraction;
 using RestShrapWrapper.Imp;
+using Microsoft.EntityFrameworkCore;
+using RestShrapWrapper;
 
 namespace WatsAppIntegration.Test
 {
@@ -20,7 +22,8 @@ namespace WatsAppIntegration.Test
 		[TestInitialize]
 		public void Init()
 		{
-			//_restApiInvoker=new RestApiInvoker()
+			var contextOption = new DbContextOptionsBuilder<IntegrationAuditingContext>().UseSqlServer("").Options;
+			_restApiInvoker = new RestApiInvoker(contextOption);
 			_watsAppMsgApi = new WatsAppMsgApi(Options.Create(new FaceBookGraphApiConfig
 			{
 				GraphApiUrl = "https://graph.facebook.com",
