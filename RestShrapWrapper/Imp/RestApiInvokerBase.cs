@@ -20,7 +20,7 @@ namespace RestShrapWrapper.Imp
 			var baseUrl = string.IsNullOrWhiteSpace(url) ? string.Empty : url;
 			try
 			{
-				var options = new RestClientOptions("")
+				var options = new RestClientOptions()
 				{
 					MaxTimeout = -1
 				};
@@ -40,7 +40,6 @@ namespace RestShrapWrapper.Imp
 					request.AddStringBody(reqStringBody, DataFormat.Json);
 				}
 				var response = client.Execute<TReturn>(request);
-				var rs = JsonSerializer.Serialize(response);
 				return response.Data;
 			}
 			catch (Exception ex)

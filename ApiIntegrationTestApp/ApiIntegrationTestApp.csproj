@@ -16,4 +16,10 @@
     <ProjectReference Include="..\WatsAppIntegration\WatsAppIntegration.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="applicationConfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

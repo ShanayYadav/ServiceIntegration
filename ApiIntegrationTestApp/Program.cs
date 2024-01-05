@@ -6,6 +6,8 @@ using RestShrapWrapper.Abstraction;
 using RestShrapWrapper.Imp;
 using RestShrapWrapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using WatsAppIntegration.Domain.Config;
 
 namespace ApiIntegrationTestApp
 {
@@ -14,12 +16,14 @@ namespace ApiIntegrationTestApp
 		static void Main(string[] args)
 		{
 			var builder = Host.CreateApplicationBuilder(args);
-
+			builder.Configuration.SetBasePath(Directory.GetCurrentDirectory())
+				.AddJsonFile("applicationConfig.json");
+			var _configuration = builder.Configuration;
 			builder.Services.AddDbContext<IntegrationAuditingContext>(options =>
 			{
 				if (!options.IsConfigured)
 				{
-					options.UseSqlServer("Data Source=DESKTOP-ST9KBFM;initial catalog=IClapDatabase;User Id='DESKTOP-ST9KBFM\\Gaurav'; Trusted_Connection=true; TrustServerCertificate=true");
+					options.UseSqlServer(_configuration.GetConnectionString("ConStr"));
 				}
 			});
 
@@ -27,6 +31,7 @@ namespace ApiIntegrationTestApp
 			builder.Services.AddTransient<IRequestEvent, RequestEvent>();
 			builder.Services.AddTransient<IRestApiInvoker, RestApiInvoker>();
 			builder.Services.AddTransient<IWatsAppMsgApi, WatsAppMsgApi>();
+			builder.Services.Configure<FaceBookGraphApiConfig>(_configuration.GetSection("FaceBookGraphApi"));
 			var host = builder.Build();
 
 			var watsApp = new WatApiCallTest(host.Services.GetService<IWatsAppMsgApi>());

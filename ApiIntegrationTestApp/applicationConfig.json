@@ -1,0 +1,13 @@
+{
+    "FaceBookGraphApi": {
+        "GraphApiUrl": "https://graph.facebook.com",
+        "WatsAppApi": {
+            "AuthToken": "Bearer EAAQz2SEZAtZBwBO9T8BVlRMu6vZBTe74kmZCSHds3RYXVub1aaqsOlQuknhz6RBg1I07xc5lHx9ZAxBKRLRH11LrPVYC94vwBjPAJbgOecFCLJ2vk67KOfqXiOIUGZAuz6GocDX5sSMIKwTqFPV1yMd9gbwZC50JRz0PZBDbxc9BZCMGjdXAnvDlQfSPHWcaZAOQiBzUrs6TVtZBU49JZCxNMvEtsuL6C33d",
+            "PhoneNumberId": "184597484744010",
+            "Messaging_Product": "whatsapp"
+        }
+    },
+    "ConnectionStrings": {
+        "ConStr": "Data Source=DESKTOP-ST9KBFM;initial catalog=IClapDatabase;User Id='DESKTOP-ST9KBFM\\Gaurav'; Trusted_Connection=true; TrustServerCertificate=true"
+    }
+}
