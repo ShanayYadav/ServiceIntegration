@@ -3,12 +3,12 @@ using RestShrapWrapper;
 using RestShrapWrapper.Abstraction;
 using RestShrapWrapper.Enums;
 using WatsAppIntegration.Abstraction;
+using WatsAppIntegration.Config;
 using WatsAppIntegration.Domain;
-using WatsAppIntegration.Domain.Config;
 
 namespace WatsAppIntegration.Imp
 {
-	public class WatsAppMsgApi : IWatsAppMsgApi
+    public class WatsAppMsgApi : IWatsAppMsgApi
 	{
 		const string GRAPH_MSG_API_URI = "/v17.0/{0}/messages";
 

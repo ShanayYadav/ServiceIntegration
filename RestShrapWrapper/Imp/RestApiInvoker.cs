@@ -1,11 +1,14 @@
-﻿using RestSharp;
+﻿using Microsoft.Extensions.Options;
+using RestSharp;
 using RestShrapWrapper.Abstraction;
+using RestShrapWrapper.Config;
 
 namespace RestShrapWrapper.Imp
 {
 	public class RestApiInvoker : RestApiInvokerBase, IRestApiInvoker
 	{
-		public RestApiInvoker(IRequestEvent requestEvent) : base(requestEvent)
+		public RestApiInvoker(IRequestEvent requestEvent, IOptions<RestShrapConfig> restSharpConfig)
+			: base(requestEvent, restSharpConfig)
 		{
 
 		}

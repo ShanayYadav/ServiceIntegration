@@ -11,7 +11,7 @@ namespace RestShrapWrapper.Config
 	public static class ServiceRegisteration
 	{
 
-		public static void RegisterServices(this HostApplicationBuilder? builder)
+		public static void RestShrapWrapperServicesRegistration(this HostApplicationBuilder? builder)
 		{
 			if (builder == null)
 			{
@@ -25,6 +25,8 @@ namespace RestShrapWrapper.Config
 					options.UseSqlServer(_configuration.GetConnectionString("ConStr"));
 				}
 			});
+			
+			builder.Services.Configure<RestShrapConfig>(_configuration.GetSection("RestShrapConfig"));
 
 			builder.Services.AddTransient<IIntegrationAuditDal, IntegrationAuditDal>();
 			builder.Services.AddTransient<IRequestEvent, RequestEvent>();

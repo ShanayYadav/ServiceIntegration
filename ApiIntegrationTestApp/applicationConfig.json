@@ -1,4 +1,7 @@
 {
+    "RestShrapConfig": {
+        "EnableIntegrationAudit": "true"
+    },
     "FaceBookGraphApi": {
         "GraphApiUrl": "https://graph.facebook.com",
         "WatsAppApi": {
