@@ -16,7 +16,7 @@ namespace ApiIntegrationTestApp
 			builder.Configuration.SetBasePath(Directory.GetCurrentDirectory())
 				.AddJsonFile("applicationConfig.json");
 			var _configuration = builder.Configuration;
-			builder.RestShrapWarpperConfiguration();
+			builder.RegisterServices();
 			builder.Services.AddTransient<IWatsAppMsgApi, WatsAppMsgApi>();
 			builder.Services.Configure<FaceBookGraphApiConfig>(_configuration.GetSection("FaceBookGraphApi"));
 			var host = builder.Build();

@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
+using RestShrapWrapper;
 using RestShrapWrapper.Abstraction;
+using RestShrapWrapper.Enums;
 using WatsAppIntegration.Abstraction;
 using WatsAppIntegration.Domain;
 using WatsAppIntegration.Domain.Config;
@@ -23,12 +25,18 @@ namespace WatsAppIntegration.Imp
 		{
 			var url = string.Format($"{_faceBookGraphApiConfig.GraphApiUrl}{GRAPH_MSG_API_URI}", _faceBookGraphApiConfig.WatsAppApi.PhoneNumberId);
 			watsSendMsgRequestModel.Messaging_Product = _faceBookGraphApiConfig.WatsAppApi.Messaging_Product;
-			var headers = new Dictionary<string, string>
-			{
-				{ "Authorization", _faceBookGraphApiConfig.WatsAppApi.AuthToken}
-			};
-			var result = _restApiInvoker.Post<WatsAppSendMsgRequestModel, WatsAppSendMsgResponseModel>(url, watsSendMsgRequestModel, headers);
+			var result = _restApiInvoker.Post<WatsAppSendMsgRequestModel, WatsAppSendMsgResponseModel>(url, watsSendMsgRequestModel,
+				AddHeader(_faceBookGraphApiConfig.WatsAppApi.AuthToken));
 			return result;
+		}
+
+		private Dictionary<string, string> AddHeader(string authToken)
+		{
+			return new Dictionary<string, string>
+			{
+				{ HeaderConstant.Authorization, authToken},
+				{ HeaderConstant.API_TYPE, ApiType.WatsApi.ToString()}
+			};
 		}
 	}
 }

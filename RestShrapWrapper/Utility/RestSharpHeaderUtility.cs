@@ -1,4 +1,5 @@
 ﻿using RestSharp;
+using RestShrapWrapper.Enums;
 using System.Net.Http.Headers;
 using System.Text;
 
@@ -6,6 +7,7 @@ namespace RestShrapWrapper.Utility
 {
 	public static class RestSharpHeaderUtility
 	{
+		public const string TRACE_ID_Header_KEY = "traceid";
 		public static RestRequest AddHeaders(this RestRequest request, Dictionary<string, string> headers)
 		{
 			if (request == null)
@@ -14,7 +16,7 @@ namespace RestShrapWrapper.Utility
 			}
 
 			request.AddHeader("Content-Type", "application/json");
-			request.AddHeader(RestWrapperConstant.TRACE_ID_Header_KEY, Guid.NewGuid());
+			request.AddHeader(TRACE_ID_Header_KEY, Guid.NewGuid());
 			if (headers != null)
 			{
 				foreach (var header in headers)
@@ -33,7 +35,7 @@ namespace RestShrapWrapper.Utility
 			{
 				var current = enumerator.Current;
 				strBuilder.Append($"{current.Key}:{current.Value.FirstOrDefault()}");
-				strBuilder.Append(",");
+				strBuilder.Append(',');
 			}
 			var reqHeaders = strBuilder.ToString();
 			return reqHeaders.Substring(0, reqHeaders.Length - 1);
@@ -41,8 +43,17 @@ namespace RestShrapWrapper.Utility
 
 		public static string GetTraceIdHedaerValue(this HttpHeaders headers)
 		{
-			return headers?.GetValues(RestWrapperConstant.TRACE_ID_Header_KEY).FirstOrDefault();
+			return headers?.GetValues(TRACE_ID_Header_KEY).FirstOrDefault();
 		}
 
+		public static ApiType GetApiTypeHeader(this HttpHeaders headers)
+		{
+			var header = headers?.GetValues(HeaderConstant.API_TYPE).FirstOrDefault();
+			if (Enum.TryParse(header, true, out ApiType apiType))
+			{
+				return apiType;
+			}
+			return ApiType.None;
+		}
 	}
 }

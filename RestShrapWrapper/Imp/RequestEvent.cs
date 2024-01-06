@@ -1,7 +1,7 @@
 ﻿using RestShrapWrapper.Abstraction;
 using RestShrapWrapper.Domian;
+using RestShrapWrapper.Enums;
 using RestShrapWrapper.Utility;
-using System.Text.Json;
 
 namespace RestShrapWrapper.Imp
 {
@@ -81,10 +81,10 @@ namespace RestShrapWrapper.Imp
 			var traceId = requestMessage.Headers.GetTraceIdHedaerValue();
 			return new TIntegrationAudit
 			{
-				ApiType = 1,
+				ApiType = (int)requestMessage.Headers.GetApiTypeHeader(),
 				CreatedDate = DateTime.Now,
 				HttpStatus = 0,
-				RecordType = 1,
+				RecordType = (int)RecordType.Request,
 				Content = $"Url :{requestMessage.RequestUri}, Method: {requestMessage.Method} Headers: {header}, body: {reqBody}",
 				TraceId = traceId
 			};
@@ -127,13 +127,12 @@ namespace RestShrapWrapper.Imp
 			var resBody = responseMessage.Content.ReadAsStringAsync().Result;
 			var header = responseMessage.Headers.GetHeaders();
 			var traceId = responseMessage.RequestMessage.Headers.GetTraceIdHedaerValue();
-			//TODO : complete the code
 			return new TIntegrationAudit
 			{
-				ApiType = 1,
+				ApiType = (int)responseMessage.RequestMessage.Headers.GetApiTypeHeader(),
 				CreatedDate = DateTime.Now,
 				HttpStatus = (int)responseMessage.StatusCode,
-				RecordType = 2,
+				RecordType = (int)RecordType.Response,
 				Content = $"Headers: {header}, body: {resBody}",
 				TraceId = traceId
 			};
