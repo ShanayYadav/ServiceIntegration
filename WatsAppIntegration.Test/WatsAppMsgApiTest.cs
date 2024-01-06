@@ -1,30 +1,31 @@
 ﻿using Microsoft.Extensions.Options;
 using WatsAppIntegration.Abstraction;
 using WatsAppIntegration.Imp;
-using WatsAppIntegration.Domain.Config;
 using WatsAppIntegration.Domain;
 using WatsAppIntegration.Domain.Shared;
 using RestShrapWrapper.Abstraction;
-using RestShrapWrapper.Imp;
-using Microsoft.EntityFrameworkCore;
-using RestShrapWrapper.Domian;
+using WatsAppIntegration.Config;
+using Moq;
+using RestShrapWrapper.Enums;
+using RestShrapWrapper;
 
 namespace WatsAppIntegration.Test
 {
-    [TestClass]
+	[TestClass]
 	public class WatsAppMsgApiTest
 	{
 		IWatsAppMsgApi _watsAppMsgApi;
 		WatsAppSendMsgResponseModel _result;
 		WatsAppSendMsgRequestModel _watsAppSendMsgRequestModel;
-		IRestApiInvoker _restApiInvoker;
+		WatsAppSendMsgResponseModel _watsAppApiResponse;
+		Mock<IRestApiInvoker> _restApiInvoker;
+		FaceBookGraphApiConfig _watsApiConfig;
 
 		[TestInitialize]
 		public void Init()
 		{
-			var contextOption = new DbContextOptionsBuilder<IntegrationAuditingContext>().UseSqlServer("").Options;
-			_restApiInvoker = new RestApiInvoker(contextOption);
-			_watsAppMsgApi = new WatsAppMsgApi(Options.Create(new FaceBookGraphApiConfig
+			_restApiInvoker = new Mock<IRestApiInvoker>();
+			_watsApiConfig = new FaceBookGraphApiConfig
 			{
 				GraphApiUrl = "https://graph.facebook.com",
 				WatsAppApi = new FaceBookMsgGraphApiConfig
@@ -33,7 +34,8 @@ namespace WatsAppIntegration.Test
 					PhoneNumberId = "184597484744010",
 					Messaging_Product = "whatsapp"
 				}
-			}), _restApiInvoker);
+			};
+			_watsAppMsgApi = new WatsAppMsgApi(Options.Create(_watsApiConfig), _restApiInvoker.Object);
 
 			_watsAppSendMsgRequestModel = new WatsAppSendMsgRequestModel
 			{
@@ -79,12 +81,43 @@ namespace WatsAppIntegration.Test
 					}
 				}
 			};
+			_watsAppApiResponse = new WatsAppSendMsgResponseModel
+			{
+				Messaging_Product = "whatsapp",
+				Contacts = new List<Contact>
+					{
+						new Contact
+						{
+							Input="919350436789", Wa_Id="919350436789"
+						}
+					},
+				Messages = new List<Message>
+					{
+						new Message
+						{
+							Id="wamid.HBgMOTE5MzUwNDM2Nzg5FQIAERgSNEQ0RDZFM0Y0QTFEMjU3Rjk1AA==",
+							Message_Status="accepted"
+						}
+					}
+			};
+
+			_restApiInvoker.Setup(x => x.Post<WatsAppSendMsgRequestModel, WatsAppSendMsgResponseModel>("https://graph.facebook.com/v17.0/184597484744010/messages",
+				_watsAppSendMsgRequestModel,
+				new Dictionary<string, string>
+				{
+					{ HeaderConstant.Authorization, _watsApiConfig.WatsAppApi.AuthToken},
+				{ HeaderConstant.API_TYPE, ApiType.WatsApi.ToString()}
+				})).Returns(_watsAppApiResponse);
 		}
 
 		[TestMethod]
 		public void Test()
 		{
 			_result = _watsAppMsgApi.Send(_watsAppSendMsgRequestModel);
+			Assert.IsNotNull(_watsAppApiResponse);
+			Assert.AreEqual(_watsAppApiResponse.Messaging_Product, "whatsapp");
+			Assert.AreEqual(_watsAppApiResponse.Messages[0].Message_Status, "accepted");
+			Assert.AreEqual(_watsAppApiResponse.Messages[0].Id, "wamid.HBgMOTE5MzUwNDM2Nzg5FQIAERgSNEQ0RDZFM0Y0QTFEMjU3Rjk1AA==");
 		}
 	}
 }
