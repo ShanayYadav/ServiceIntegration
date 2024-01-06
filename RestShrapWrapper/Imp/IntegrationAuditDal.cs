@@ -3,11 +3,11 @@ using RestShrapWrapper.Domian;
 
 namespace RestShrapWrapper.Imp
 {
-	public sealed class AuditingRestClient : IAuditingRestClient
+    public sealed class IntegrationAuditDal : IIntegrationAuditDal
 	{
 		private IntegrationAuditingContext _context;
 
-		public AuditingRestClient(IntegrationAuditingContext context)
+		public IntegrationAuditDal(IntegrationAuditingContext context)
 		{
 			_context = context;
 		}
@@ -16,6 +16,12 @@ namespace RestShrapWrapper.Imp
 		{
 			_context.IntegrationAudits.Add(audit);
 			return _context.SaveChanges();
+		}
+
+		public async Task<int> InsertIntegrationAuditAysnc(TIntegrationAudit audit)
+		{
+			_context.IntegrationAudits.Add(audit);
+			return await _context.SaveChangesAsync();
 		}
 	}
 }

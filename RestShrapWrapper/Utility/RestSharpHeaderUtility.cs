@@ -1,6 +1,6 @@
 ﻿using RestSharp;
-using System.Diagnostics;
 using System.Net.Http.Headers;
+using System.Text;
 
 namespace RestShrapWrapper.Utility
 {
@@ -14,7 +14,7 @@ namespace RestShrapWrapper.Utility
 			}
 
 			request.AddHeader("Content-Type", "application/json");
-			request.AddHeader("traceid", Guid.NewGuid());
+			request.AddHeader(RestWrapperConstant.TRACE_ID_Header_KEY, Guid.NewGuid());
 			if (headers != null)
 			{
 				foreach (var header in headers)
@@ -27,14 +27,21 @@ namespace RestShrapWrapper.Utility
 
 		public static string GetHeaders(this HttpHeaders headers)
 		{
-			var reqHeaders = string.Empty;
+			var strBuilder = new StringBuilder(string.Empty);
 			var enumerator = headers.GetEnumerator();
 			while (enumerator.MoveNext())
 			{
 				var current = enumerator.Current;
-				reqHeaders += $"{current.Key}:{current.Value.FirstOrDefault()}, ";
+				strBuilder.Append($"{current.Key}:{current.Value.FirstOrDefault()}");
+				strBuilder.Append(",");
 			}
-			return reqHeaders.Substring(0, reqHeaders.Length - 3);
+			var reqHeaders = strBuilder.ToString();
+			return reqHeaders.Substring(0, reqHeaders.Length - 1);
+		}
+
+		public static string GetTraceIdHedaerValue(this HttpHeaders headers)
+		{
+			return headers?.GetValues(RestWrapperConstant.TRACE_ID_Header_KEY).FirstOrDefault();
 		}
 
 	}

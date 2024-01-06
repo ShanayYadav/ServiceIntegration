@@ -2,8 +2,9 @@
 
 namespace RestShrapWrapper.Abstraction
 {
-	public interface IAuditingRestClient
+	public interface IIntegrationAuditDal
 	{
 		int InsertIntegrationAudit(TIntegrationAudit audit);
+		Task<int> InsertIntegrationAuditAysnc(TIntegrationAudit audit);
 	}
 }

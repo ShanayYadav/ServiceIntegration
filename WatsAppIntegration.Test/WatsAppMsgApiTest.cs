@@ -7,11 +7,11 @@ using WatsAppIntegration.Domain.Shared;
 using RestShrapWrapper.Abstraction;
 using RestShrapWrapper.Imp;
 using Microsoft.EntityFrameworkCore;
-using RestShrapWrapper;
+using RestShrapWrapper.Domian;
 
 namespace WatsAppIntegration.Test
 {
-	[TestClass]
+    [TestClass]
 	public class WatsAppMsgApiTest
 	{
 		IWatsAppMsgApi _watsAppMsgApi;
